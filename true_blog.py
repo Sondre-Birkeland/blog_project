@@ -1,6 +1,7 @@
 import mysql.connector
 from flask import *
 import hashlib
+#En liten endring
 
 f = open("C:\\Users\\Ares\\Documents\\Programmer\\Hybrid\\Blog Project\\MySQLpswd.txt", "r")
 MySQLpswd = f.read()
