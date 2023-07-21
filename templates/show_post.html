@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ post[1] }}{% endblock %}
+{% block content %}
+<div>
+	Tags:
+	{% for tag in tags %}
+		<a href ={{ url_for("tag_search", id=tag[0]) }}>{{ tag[1] }}</a>
+	{% endfor %}
+</div>
+<div>
+	<p>{{ post[0] }}</p>
+	<p>{{ post[1] }}</p>
+	<p>{{ post[2] }}</p>
+	<p>Posted {{ post[3] }}</p>
+	<p>Likes: {{ post[4] }}</p>
+	{% if "user_id" in session %}
+		<form method="post">
+			{% if post[5] %}
+				<input type="submit" name="dislike" value="Dislike">
+			{% else %}
+				<input type="submit" name="like" value="Like">
+			{% endif %}
+		</form>
+	{% endif %}
+</div>
+<br>
+{% for comment in comments %}
+<div>
+	<p>{{ comment[0] }}</p>
+	<p>{{ comment[1] }}</p>
+	<p>Posted {{ comment[2] }}</p>
+	<p>Likes: {{ comment[3] }}</p>
+	{% if "user_id" in session %}
+		<form method="post">
+			{% if comment[4] %}
+				<input type="submit" name="comment_dislike" value="Dislike">
+			{% else %}
+				<input type="submit" name="comment_like" value="Like">
+			{% endif %}
+			<input type="hidden" name="comment_id" value="{{ comment[5] }}">
+		</form>
+	{% endif %}
+</div>
+<br>
+{% endfor %}
+{% if "user_id" in session %}
+<form method="post" id="comment_field">
+	<label for="comment">Leave a comment:</label><br>
+        <textarea id="comment" name="content" maxlength="100" rows="4" cols="50" required></textarea><br>
+        <input type="submit" value="Comment">
+</form>
+{% endif %}
+{% endblock %}

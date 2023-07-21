@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<div>
+	<a href={{ url_for("index") }}>Index</a>
+	{% if "user_id" in session %}
+		<a href={{ url_for("logout") }}>Logout</a>
+		{% if session["user_is_admin"] == 1 %}
+			<a href={{ url_for("make_post") }}>Make a post</a>
+		{% endif %}
+	{% else %}
+		<a href={{ url_for("login") }}>Login</a>
+		<a href={{ url_for("register") }}>Register</a>
+	{% endif %}
+</div>
+<lr>

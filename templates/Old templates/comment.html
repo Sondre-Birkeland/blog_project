@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<div>
+	<p>{{ username }}</p>
+	<p>{{ content }}</p>
+	<p>Likes: {{ likes }}</p>
+	{% if "user_id" in session %}
+		<form method="post">
+			{% if liked %}
+				<input type="submit" name="comment_dislike" value="Dislike">
+			{% else %}
+				<input type="submit" name="comment_like" value="Like">
+			{% endif %}
+			<input type="hidden" name="comment_id" value={{ comment_id }}>
+		</form>
+	{% endif %}
+</div>
+<br>

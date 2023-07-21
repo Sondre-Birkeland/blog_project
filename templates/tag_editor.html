@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Tag Editor{% endblock %}
+{% block content %}
+<div>
+<form method="post">
+	<label for="judge">Choose tags for deletion:</label><br>
+	<select id="judge" name="bad_tags" multiple required>
+		{% for tag in tags %}
+			<option value={{ tag[0] }}>{{ tag[1] }}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="Delete">
+</form>
+<br>
+<form method="post">
+	<label for="name">Make new tag:</label><br>
+	<input type="text" id="name" name="name" required><br>
+	<input type="submit" value="Make tag">
+</form>
+</div>
+{% endblock %}

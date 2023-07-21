@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<form method="post">
+	<label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" maxlength="30" required><br>
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" maxlength="500" rows="5" cols="50" required></textarea><br>
+	<label for="tags">Tags:</label><br>
+	<select id="tags" name="tags" multiple>
+		{% for tag in tags %}
+			<option value={{ tag[0] }}>{{ tag[1] }}</option>
+		{% endfor %}
+	</select>
+	<input type=submit value=Post>
+</form>

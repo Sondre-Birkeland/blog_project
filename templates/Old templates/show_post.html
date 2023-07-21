@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<div>
+	Tags:
+	{% for tag in tags %}
+		<a href ={{ url_for("tag_search", id=tag[0]) }}>{{ tag[1] }}</a>
+	{% endfor %}
+</div>
+<div>
+	<p>{{ username }}</p>
+	<p>{{ title }}</p>
+	<p>{{ content }}</p>
+	<p>Likes: {{ likes }}</p>
+	{% if "user_id" in session %}
+		<form method="post">
+			{% if liked %}
+				<input type="submit" name="dislike" value="Dislike">
+			{% else %}
+				<input type="submit" name="like" value="Like">
+			{% endif %}
+		</form>
+	{% endif %}
+</div>
+<br>
