@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-bs-theme="dark">
 <head>
-<title>{% block title %}{% endblock %}</title
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet" />
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
 </head>
 <body>
-<div id="navbar">
+<div id="navbar" class="container bg-body" style="position: sticky; top: 0;">
 	<a href={{ url_for("index") }}>Index</a>
 	{% if "user_id" in session %}
 		<a href={{ url_for("logout") }}>Logout</a>

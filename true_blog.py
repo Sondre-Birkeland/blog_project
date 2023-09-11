@@ -82,7 +82,7 @@ def show_post(id):
         else:
             like_handler(id)
     post, comments, tags = get_post_data(id)
-    return render_template("show_post.html", post=post, comments=comments, tags=tags)
+    return render_template("show_post.html", post=post, comments=comments, tags=tags, post_id=id)
     
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -158,9 +158,8 @@ def tag_edit():
     if "user_id" in session and session["user_is_admin"]:
         if request.method == "POST":
             if "bad_tags" in request.form:
-                bad_tags = request.form.getlist("bad_tags")
-                for bad_tag in bad_tags:
-                    cur.execute("DELETE FROM tags WHERE id = %s", (bad_tag, ))
+                bad_tags = [(tag, ) for tag in request.form.getlist("bad_tags")]
+                cur.executemany("DELETE FROM tags WHERE id = %s", bad_tags)
                 mydb.commit()
             elif "name" in request.form:
                 new_tag = request.form["name"]
@@ -171,3 +170,24 @@ def tag_edit():
         return render_template("tag_editor.html", tags=tags)
     else:
         return redirect(url_for("index"))
+
+@app.route("/<int:id>/tags", methods=["GET", "POST"])
+def post_tag_edit(id):
+    if "user_id" in session and session["user_is_admin"]:
+        if request.method == "POST":
+            if "bad_tags" in request.form:
+                bad_tags = [(id, tag) for tag in request.form.getlist("bad_tags")]
+                cur.executemany("DELETE FROM post_tags WHERE post_id = %s AND tag_id = %s", bad_tags)
+                mydb.commit()
+            elif "good_tags" in request.form:
+                good_tags = [(id, tag) for tag in request.form.getlist("good_tags")]
+                cur.executemany("INSERT INTO post_tags(post_id, tag_id) VALUES (%s, %s)", good_tags)
+                mydb.commit()
+            return redirect(url_for("show_post", id=id))
+        cur.execute("SELECT tag_id, name FROM post_tags LEFT JOIN tags ON post_tags.tag_id=tags.id WHERE post_id=%s", (id, ))
+        present_tags=cur.fetchall()
+        cur.execute("SELECT * FROM tags WHERE id NOT IN (SELECT tag_id FROM post_tags WHERE post_id=%s)", (id, ))
+        absent_tags=cur.fetchall()
+        return render_template("post_tag_editor.html", present_tags=present_tags, absent_tags=absent_tags) #Make a new template for this?
+    else:
+        return redirect(url_for("show_post", id=id))

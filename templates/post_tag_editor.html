@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Change Tags{% endblock %}
+{% block content %}
+<form method="post">
+	<label for="drop">Choose tags to remove:</label><br>
+	<select id="drop" name="bad_tags" multiple required>
+		{% for tag in present_tags %}
+			<option value={{ tag[0] }}>{{ tag[1] }}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="Remove">
+</form>
+<br>
+<form method="post">
+	<label for="add">Choose tags to add:</label><br>
+	<select id="add" name="good_tags" multiple required>
+		{% for tag in absent_tags %}
+			<option value={{ tag[0] }}>{{ tag[1] }}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="Add">
+</form>
+{% endblock %}

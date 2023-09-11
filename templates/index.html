@@ -2,13 +2,13 @@
 {% block title %}Index{% endblock %}
 {% block content %}
 	{% for post in posts %}
-		<a href="{{ url_for("show_post", id=post[0]) }}">
-		<div>
-			<p>{{ post[1] }}</p>
-			<p>{{ post[2] }}</p>
-			<p>Posted {{ post[3] }}</p>
-		</div>
+		<div class="container bg-secondary-subtle">
+		<a href="{{ url_for("show_post", id=post[0]) }}" class="text-decoration-none">
+			<p style="color: var(--bs-body-color);">{{ post[1] }}</p>
+			<p style="color: var(--bs-body-color);">{{ post[2] }}</p>
+			<p class="text-secondary fs-6">Posted {{ post[3] }}</p>
 		</a>
+		</div>
 		<br>
 	{% endfor %}
 {% endblock %}

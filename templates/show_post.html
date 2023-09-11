@@ -6,12 +6,16 @@
 	{% for tag in tags %}
 		<a href ={{ url_for("tag_search", id=tag[0]) }}>{{ tag[1] }}</a>
 	{% endfor %}
+	<br>
+	{% if "user_id" in session and session["user_is_admin"] == 1 %}
+		<a href="{{ url_for("post_tag_edit", id=post_id) }}">Add/remove tags from this post</a>
+	{% endif %}
 </div>
-<div>
+<div class="container bg-secondary-subtle">
 	<p>{{ post[0] }}</p>
-	<p>{{ post[1] }}</p>
+	<h3>{{ post[1] }}</h3>
 	<p>{{ post[2] }}</p>
-	<p>Posted {{ post[3] }}</p>
+	<p class="text-secondary">Posted {{ post[3] }}</p>
 	<p>Likes: {{ post[4] }}</p>
 	{% if "user_id" in session %}
 		<form method="post">
@@ -25,10 +29,10 @@
 </div>
 <br>
 {% for comment in comments %}
-<div>
+<div class="container-sm bg-secondary-subtle">
 	<p>{{ comment[0] }}</p>
 	<p>{{ comment[1] }}</p>
-	<p>Posted {{ comment[2] }}</p>
+	<p class="text-secondary">Posted {{ comment[2] }}</p>
 	<p>Likes: {{ comment[3] }}</p>
 	{% if "user_id" in session %}
 		<form method="post">
