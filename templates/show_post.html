@@ -14,7 +14,7 @@
 <div class="container bg-secondary-subtle">
 	<p>{{ post[0] }}</p>
 	<h3>{{ post[1] }}</h3>
-	<p>{{ post[2] }}</p>
+	<pre>{{ post[2] }}</pre>
 	<p class="text-secondary">Posted {{ post[3] }}</p>
 	<p>Likes: {{ post[4] }}</p>
 	{% if "user_id" in session %}
@@ -31,7 +31,7 @@
 {% for comment in comments %}
 <div class="container-sm bg-secondary-subtle">
 	<p>{{ comment[0] }}</p>
-	<p>{{ comment[1] }}</p>
+	<pre>{{ comment[1] }}</pre>
 	<p class="text-secondary">Posted {{ comment[2] }}</p>
 	<p>Likes: {{ comment[3] }}</p>
 	{% if "user_id" in session %}

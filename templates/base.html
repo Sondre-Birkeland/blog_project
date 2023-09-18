@@ -9,24 +9,29 @@
     {% endblock %}
 </head>
 <body>
-<div id="navbar" class="container bg-body" style="position: sticky; top: 0;">
-	<a href={{ url_for("index") }}>Index</a>
-	{% if "user_id" in session %}
-		<a href={{ url_for("logout") }}>Logout</a>
-		{% if session["user_is_admin"] == 1 %}
-			<a href={{ url_for("make_post") }}>Make a post</a>
-			<a href="{{ url_for("tag_edit") }}">Add/remove tags</a>
-		{% endif %}
-	{% else %}
-		<a href={{ url_for("login") }}>Login</a>
-		<a href={{ url_for("register") }}>Register</a>
-	{% endif %}
-	<form action="{{ url_for("search")}}" method="post">
-		<label for="search_bar">Search: </label>
-		<input type="text" id="search_bar" name="search_bar">
-		<input type="submit" name="search" value="Pretend this is a magnifying glass">
-	</form>
+<nav class="navbar navbar-expand-lg bg-body-secondary position-sticky top-0">
+<div class="container-fluid justify-content-center">
+	<div class="navbar-nav">
+		<a class="nav-link" href={{ url_for("index") }}>Index</a>
+		<div class="navbar-nav">
+			{% if "user_id" in session %}
+				<a class="nav-link" href={{ url_for("logout") }}>Logout</a>
+				{% if session["user_is_admin"] == 1 %}
+					<a class="nav-link" href={{ url_for("make_post") }}>Make a post</a>
+					<a class="nav-link" href="{{ url_for("tag_edit") }}">Add/remove tags</a>
+				{% endif %}
+			{% else %}
+				<a class="nav-link" href={{ url_for("login") }}>Login</a>
+				<a class="nav-link" href={{ url_for("register") }}>Register</a>
+			{% endif %}
+			<form class="d-flex" role="search" action="{{ url_for("search")}}" method="post">
+				<input type="text" id="search_bar" name="search_bar">
+				<input type="submit" name="search" value="Search">
+			</form>
+		</div>
+	</div>
 </div>
+</nav>
 <br>
 <div id="content">{% block content %}{% endblock %}</div>
 </body>

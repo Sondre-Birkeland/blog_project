@@ -4,6 +4,7 @@
 {% if error %}
 	<p>Error: {{ error }}</p>
 {% endif %}
+<div class="position-relative start-50">
 <form method="post">
 	<label for="username">Username:</label><br>
         <input type="text" id="username" name="username" value="{{ request.form["username"] }}" required><br>
@@ -11,4 +12,5 @@
         <input type="password" id="password" name="password" required><br>
 	<input type=submit value=Login>
 </form>
+</div>
 {% endblock %}
